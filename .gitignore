@@ -1,0 +1,10 @@
+.metadata/
+.settings/
+.project
+.classpath
+target/
+
+
+corpus-gbk/
+corpus-utf8/
+dict-gb2312/
