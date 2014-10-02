@@ -44,7 +44,6 @@ public class RootServiceTest {
         for(File file:rootFile.listFiles()){
             docs.addAll(getDocs(file));
         }
-        
     }
 
     private List<MdsDocument> getDocs(File dir) {

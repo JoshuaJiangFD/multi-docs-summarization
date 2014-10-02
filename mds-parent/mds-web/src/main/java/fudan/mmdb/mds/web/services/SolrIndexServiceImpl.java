@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import fudan.mmdb.mds.web.model.ClusteredResponse;
 import fudan.mmdb.mds.web.model.MdsSolrDocument;
 import fudan.mmdb.mds.web.repository.solr.DocumentRepository;
 
@@ -34,6 +35,10 @@ public class SolrIndexServiceImpl implements SolrIndexService {
     @Override
     public void update(MdsSolrDocument todoEntry) {
         docRepo.save(todoEntry);
+    }
+    
+    public ClusteredResponse clusterOnSearch(String searchTerm){
+    	return docRepo.getClusters(searchTerm);
     }
 
 }

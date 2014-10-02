@@ -23,6 +23,4 @@ public interface DocumentRepository extends
 
 	public List<MdsSolrDocument> findByContent(String searchTerm);
 
-	@Query(requestHandler = "/clustering", value = "text:*?0*")
-	public List<MdsSolrDocument> clusteringAllDocs(String searchTerm);
 }

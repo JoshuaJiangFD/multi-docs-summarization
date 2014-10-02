@@ -5,11 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.google.common.base.Function;
-import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
 import fudan.mmdb.mds.core.model.MdsDocument;
+import fudan.mmdb.mds.web.model.ClusteredResponse;
 import fudan.mmdb.mds.web.model.MdsSolrDocument;
 import fudan.mmdb.mds.web.repository.mongo.MongoDocRepository;
 
@@ -57,25 +56,8 @@ public class RootService {
         return returnedDocs; 
     }
     
-
-    public List<MdsDocument> search(String query) {
-
-        List<MdsSolrDocument> solrDocs = solrService.search(query);
-
-        List<String> ids = Lists.newArrayList(Iterables.transform(solrDocs,
-                new Function<MdsSolrDocument, String>() {
-
-                    @Override
-                    public String apply(MdsSolrDocument doc) {
-                        return doc.getId();
-                    }
-
-                }));
-
-        List<MdsDocument> mdsDocs = Lists.newArrayList(mongoRepository
-                .findAll(ids));
-
-        return mdsDocs;
+    public ClusteredResponse searchAndCluster(String searchTerm){
+    	return solrService.clusterOnSearch(searchTerm); 
     }
 
 }
