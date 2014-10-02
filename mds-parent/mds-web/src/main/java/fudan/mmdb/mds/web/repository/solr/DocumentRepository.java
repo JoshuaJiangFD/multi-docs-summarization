@@ -8,7 +8,7 @@ import org.springframework.data.solr.repository.SolrCrudRepository;
 
 import fudan.mmdb.mds.web.model.MdsSolrDocument;
 
-public interface DocumentRepository extends SolrCrudRepository<MdsSolrDocument,String> {
+public interface DocumentRepository extends SolrCrudRepository<MdsSolrDocument,String>,ClusteringRepository {
     
     @Query("title:*?0* OR content:*?0*")
     public List<MdsSolrDocument> findByQueryAnnotation(String searchTerm, Sort sort);
