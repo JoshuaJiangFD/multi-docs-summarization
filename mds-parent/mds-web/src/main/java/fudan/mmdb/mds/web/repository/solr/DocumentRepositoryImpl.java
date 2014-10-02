@@ -15,6 +15,8 @@ import org.springframework.stereotype.Repository;
 import com.google.common.collect.Lists;
 
 import fudan.mmdb.mds.web.model.ClusteredItem;
+import fudan.mmdb.mds.web.model.ClusteredResponse;
+import fudan.mmdb.mds.web.model.MdsSolrDocument;
 
 @Repository
 public class DocumentRepositoryImpl implements ClusteringRepository {
@@ -22,27 +24,36 @@ public class DocumentRepositoryImpl implements ClusteringRepository {
 	@Autowired
 	private SolrOperations solrTemplate;
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<ClusteredItem> getClusters(String searchTerm) {
-		List<ClusteredItem> items = Lists.newArrayList();
+	public ClusteredResponse getClusters(String searchTerm) {
+		
+		ClusteredResponse clsrResp=new ClusteredResponse();
+		List<ClusteredItem> clstrItems = Lists.newArrayList();
 		SolrQuery query = new SolrQuery().setRequestHandler("/clustering").setParam("q",searchTerm);
 		try {
 			SolrServer server = solrTemplate.getSolrServer();
 			QueryResponse response = server.query(query);
 			NamedList<Object> repObjs = response.getResponse();
+			//parse clstrs
 			Object clusterNode = repObjs.get("clusters");
 			List<Object> clusterInfos = (List<Object>) clusterNode;
 			for (Object clusterInfo : clusterInfos) {
 				NamedList<Object> clstrInfo = (NamedList<Object>) clusterInfo;
-				items.add(parseClstrItem(clstrInfo));
+				clstrItems.add(parseClstrItem(clstrInfo));
 			}
-			return items;
+			clsrResp.setClusters(clstrItems);
+			//parse docs
+			List<MdsSolrDocument> docBeans=response.getBeans(MdsSolrDocument.class);
+			clsrResp.setDocs(docBeans);
+			return clsrResp;
 		} catch (Exception ex) {
 			return null;
 		}
 
 	}
-
+	
+	@SuppressWarnings("unchecked")
 	private ClusteredItem parseClstrItem(NamedList<Object> clstrInfo) {
 		ClusteredItem item = new ClusteredItem();
 		for (Map.Entry<String, Object> doc : clstrInfo) {
@@ -50,7 +61,11 @@ public class DocumentRepositoryImpl implements ClusteringRepository {
 			Object value = doc.getValue();
 			if ("labels".equals(key)) {
 				List<String> labels = (ArrayList<String>) value;
-				item.setLabel(labels.get(0));
+				String labelStr=labels.get(0);
+				item.setLabel(labelStr);
+				if("other-topics".equals(labelStr))
+					item.setIsOtherTopsic(true);
+				
 			} else if ("score".equals(key)) {
 				double score = (Double) value;
 				item.setScore(score);

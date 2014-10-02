@@ -1,11 +1,9 @@
 package fudan.mmdb.mds.web.repository.solr;
 
-import java.util.List;
-
-import fudan.mmdb.mds.web.model.ClusteredItem;
+import fudan.mmdb.mds.web.model.ClusteredResponse;
 
 public interface ClusteringRepository {
 	
-	public List<ClusteredItem> getClusters(String searchTerm);
+	public ClusteredResponse getClusters(String searchTerm);
 	
 }

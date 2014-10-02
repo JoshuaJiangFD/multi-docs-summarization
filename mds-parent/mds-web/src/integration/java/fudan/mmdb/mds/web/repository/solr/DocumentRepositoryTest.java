@@ -15,6 +15,7 @@ import org.springframework.util.Assert;
 import com.google.common.collect.Lists;
 
 import fudan.mmdb.mds.web.config.HttpSolrConfig;
+import fudan.mmdb.mds.web.model.ClusteredResponse;
 import fudan.mmdb.mds.web.model.MdsSolrDocument;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -49,8 +50,9 @@ public class DocumentRepositoryTest {
 
     @Test
     public void testClustering(){
-        List<MdsSolrDocument> allDocs=docRepository.clusteringAllDocs("以色列");
-        System.out.println(allDocs.size());
+    	ClusteredResponse response=this.docRepository.getClusters("以色列");
+    	System.out.println(response.getClusters().size());
+    	System.out.println(response.getDocs().size());
     }
     
     @Test

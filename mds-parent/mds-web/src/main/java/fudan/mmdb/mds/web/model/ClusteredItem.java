@@ -10,7 +10,7 @@ public class ClusteredItem {
 	
 	private double score;
 	
-	private Boolean isOtherTopic;
+	private Boolean isOtherTopsic;
 
 	public ClusteredItem(){
 		
@@ -44,5 +44,13 @@ public class ClusteredItem {
 
 	public void setScore(double score) {
 		this.score = score;
+	}
+	
+	public Boolean getIsOtherTopsic() {
+		return isOtherTopsic;
+	}
+
+	public void setIsOtherTopsic(Boolean isOtherTopsic) {
+		this.isOtherTopsic = isOtherTopsic;
 	}
 }
