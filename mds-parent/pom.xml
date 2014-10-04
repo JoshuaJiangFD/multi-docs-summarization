@@ -6,7 +6,7 @@
 	<artifactId>mds-parent</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>Multiple Document Summarization</name>
+	<name>Joshua's work for Shan</name>
 	<modules>
 		<module>mds-wordsimilarity</module>
 		<module>mds-core</module>
