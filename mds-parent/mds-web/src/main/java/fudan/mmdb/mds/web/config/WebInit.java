@@ -8,6 +8,7 @@ import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
+import org.springframework.web.util.Log4jConfigListener;
 
 /**
  * The java based way to register the root web application context 
@@ -21,11 +22,18 @@ public class WebInit implements WebApplicationInitializer {
 
     
     public void onStartup(ServletContext servletContext) throws ServletException {
+    	//1. set log4j  ConfigLocation
+    	servletContext.setInitParameter("log4jConfigLocation", "classpath:log4j.properties");
+    	servletContext.setInitParameter("webAppRootKey", "webapp.mds.root");
+    	servletContext.addListener(Log4jConfigListener.class);
+    	
+    	
         //1. create the root application context
         AnnotationConfigWebApplicationContext rootContext=new AnnotationConfigWebApplicationContext();
         //registers the application configuration with the root context
         rootContext.register(RootAppConfig.class);
         servletContext.addListener(new ContextLoaderListener(rootContext));
+        
         
         /*
          *2. create the dispatcher servlet context, using "AnnotationConfigWebApplicationContext"

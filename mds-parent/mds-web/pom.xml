@@ -15,6 +15,15 @@
 	<name>mds-web Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 	<dependencies>
+		<!--slf log -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+		</dependency>
 		<!-- google guava -->
 		<dependency>
 			<groupId>com.google.guava</groupId>

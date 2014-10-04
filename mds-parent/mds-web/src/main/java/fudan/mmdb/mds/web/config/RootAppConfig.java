@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Import;
  *
  */
 @Configuration
-@Import(HttpSolrConfig.class)
+@Import({HttpSolrConfig.class,MongoDbConfig.class})
 public class RootAppConfig {
 
 }
