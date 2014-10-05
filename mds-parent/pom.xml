@@ -21,12 +21,13 @@
 
 	<dependencyManagement>
 		<dependencies>
-			<!-- spring -->
+			<!-- spring core-->
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-core</artifactId>
 				<version>${spring.version}</version>
 				<exclusions>
+					<!-- will let jcl-over-slf4j take over the calls to commons-logging -->
 					<exclusion>
 						<artifactId>commons-logging</artifactId>
 						<groupId>commons-logging</groupId>
@@ -38,7 +39,7 @@
 				<artifactId>spring-context</artifactId>
 				<version>${spring.version}</version>
 				<exclusions>
-				<!-- will let jcl-over-slf4j take over the calls to  commons-logging-->
+					<!-- will let jcl-over-slf4j take over the calls to commons-logging -->
 					<exclusion>
 						<artifactId>commons-logging</artifactId>
 						<groupId>commons-logging</groupId>
@@ -50,6 +51,7 @@
 				<artifactId>spring-webmvc</artifactId>
 				<version>${spring.version}</version>
 			</dependency>
+			<!-- spring data -->
 			<dependency>
 				<groupId>org.springframework.data</groupId>
 				<artifactId>spring-data-solr</artifactId>
@@ -67,6 +69,9 @@
 				<version>${spring.version}</version>
 				<scope>test</scope>
 			</dependency>
+			<!-- jstl & jsp -->
+			
+
 			<!-- google guava -->
 			<dependency>
 				<groupId>com.google.guava</groupId>
