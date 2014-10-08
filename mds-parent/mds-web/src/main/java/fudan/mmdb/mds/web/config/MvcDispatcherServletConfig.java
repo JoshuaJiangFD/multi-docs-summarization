@@ -48,7 +48,7 @@ public class MvcDispatcherServletConfig extends WebMvcConfigurerAdapter {
 	public void configureContentNegotiation(
 			ContentNegotiationConfigurer configurer) {
 		configurer.favorPathExtension(false).favorParameter(true)
-				.parameterName("mediaType").ignoreAcceptHeader(true)
+				.parameterName("mediaType").ignoreAcceptHeader(false)
 				.useJaf(false).defaultContentType(MediaType.TEXT_HTML)
 				.mediaType("xml", MediaType.APPLICATION_XML)
 				.mediaType("json", MediaType.APPLICATION_JSON);

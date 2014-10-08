@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 
 
@@ -26,10 +27,13 @@ public class HomeController {
     }
     
     @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public String showQueryPage(HttpServletRequest request) {
+    public ModelAndView showQueryPage(HttpServletRequest request) {
         LOGGER.debug("Rendering search page.");
+        ModelAndView mv=new ModelAndView();
         String queryTerm=request.getParameter("q");
-        LOGGER.debug(queryTerm);
-        return QEURY_VIEW;
+        mv.setViewName(QEURY_VIEW);
+        mv.addObject("queryterm", queryTerm);
+        return mv;
+        
     }
 }

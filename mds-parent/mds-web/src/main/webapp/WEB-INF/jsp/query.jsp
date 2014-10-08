@@ -147,7 +147,10 @@ html, body {
 	<script type="text/javascript" src="includes/jqwidgets/jqxscrollbar.js"></script>
 	<!-- END CORE PLUGINS -->
 	<!-- BEGIN PAGE LEVEL SCRIPTS -->
-	<script type="text/javascript" src="js/querypage.js"></script>
+	<script type="text/javascript">
+		var queryterm='${queryterm}'
+	</script>
+	<script type="text/javascript" src="js/query.js"></script>
 	<!-- END PAGE LEVEL SCRIPTS -->
 </body>
 </html>
