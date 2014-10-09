@@ -41,7 +41,7 @@
 
 	<!-- BEGIN CONTAINER -->
 	<div class="container">
-		<form class="searchform" action="<c:url value="/search" />"  method="get">
+		<form class="searchform" action="<c:url value="/search"/>"  method="get">
 			<input type="text" name="q">
 			<!--
 			-->

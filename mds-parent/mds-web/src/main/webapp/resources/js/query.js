@@ -65,27 +65,56 @@ $(document).ready(function() {
 				}
 			});
 		};
+        var addEventListeners = function () {
+            $('#jqxTree').on('select', function (event) {
+                var item = $('#jqxTree').jqxTree('getItem', event.args.element);
+                getDocs(item.label);
+            });
+        };
+       var getDocs=function(clusterLabel){
+    	   var currentDocs=[];
+    	   var docIds;
+    	   $(pageData.clusters).each(function(index){
+    		   if(clusterLabel==this.label){
+    			   docIds=this.ids
+    		   }
+    		});
+    	   if(docIds){
+    	  	   $(pageData.docs).each(function(index){
+    	  		   if($.inArray(this.id, docIds)!=-1){
+    	  			 currentDocs.push(this);
+    	  		   }
+        		});  
+    	   }
+    	   $('#feedListContainer').jqxListBox('source', currentDocs);
+       }  
 		var initQuery = function(queryterm) {
-			var urlstr = "/cluster/" + queryterm;
+			var urlstr = "rest/cluster/" + queryterm;
 			$.ajax({
 				url : urlstr,
 				headers : {
 					Accept : "application/json; charset=utf-8",
 				},
+				contentType:'application/json; charset=UTF-8',
 			success : function(response) { 
-				var clusters=response.clusters;
-				var docs=response.docs;
+				pageData.clusters=response.clusters;
+				pageData.docs=response.docs;
 				$('#jqxTree').jqxTree({
-					source:clusters,
+					source:pageData.clusters,
 					height : '100%',
 					width : '100%'
 				});
 			}
 			});
 		}
+		var pageData={
+				clusters:[],
+				docs:{},
+		}
 		return {
 			init : function() {
 				createWidgets();
+				addEventListeners();
 				if (queryterm)
 					initQuery(queryterm);
 			}

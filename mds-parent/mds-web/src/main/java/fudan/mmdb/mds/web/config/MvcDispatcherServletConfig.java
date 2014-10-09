@@ -29,6 +29,7 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = { "fudan.mmdb.mds.web.controllers",
+"fudan.mmdb.mds.web.controllers.rest",
 		"fudan.mmdb.mds.web.services" })
 public class MvcDispatcherServletConfig extends WebMvcConfigurerAdapter {
 
