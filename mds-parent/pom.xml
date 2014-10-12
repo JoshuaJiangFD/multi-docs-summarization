@@ -11,6 +11,7 @@
 		<module>mds-wordsimilarity</module>
 		<module>mds-core</module>
 		<module>mds-web</module>
+		<module>mds-datafeeding</module>
 	</modules>
 
 	<properties>
