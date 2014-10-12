@@ -14,9 +14,9 @@ import org.springframework.stereotype.Repository;
 
 import com.google.common.collect.Lists;
 
+import fudan.mmdb.mds.core.model.solr.MdsSolrDocument;
 import fudan.mmdb.mds.web.model.ClusteredItem;
 import fudan.mmdb.mds.web.model.ClusteredResponse;
-import fudan.mmdb.mds.web.model.MdsSolrDocument;
 
 @Repository
 public class DocumentRepositoryImpl implements ClusteringRepository {

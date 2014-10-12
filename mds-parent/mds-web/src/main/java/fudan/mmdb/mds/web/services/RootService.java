@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 import com.google.common.collect.Lists;
 
 import fudan.mmdb.mds.core.model.MdsDocument;
+import fudan.mmdb.mds.core.model.solr.MdsSolrDocument;
 import fudan.mmdb.mds.web.model.ClusteredResponse;
-import fudan.mmdb.mds.web.model.MdsSolrDocument;
 import fudan.mmdb.mds.web.repository.mongo.MongoDocRepository;
 
 @Service

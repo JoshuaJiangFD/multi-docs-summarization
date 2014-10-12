@@ -2,6 +2,8 @@ package fudan.mmdb.mds.web.model;
 
 import java.util.List;
 
+import fudan.mmdb.mds.core.model.solr.MdsSolrDocument;
+
 public class ClusteredResponse {
 
 	private List<ClusteredItem> clusters;

@@ -2,8 +2,8 @@ package fudan.mmdb.mds.web.services;
 
 import java.util.List;
 
+import fudan.mmdb.mds.core.model.solr.MdsSolrDocument;
 import fudan.mmdb.mds.web.model.ClusteredResponse;
-import fudan.mmdb.mds.web.model.MdsSolrDocument;
 
 public interface SolrIndexService {
 

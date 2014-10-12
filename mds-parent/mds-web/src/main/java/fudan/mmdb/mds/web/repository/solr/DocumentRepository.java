@@ -6,7 +6,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.solr.repository.Query;
 import org.springframework.data.solr.repository.SolrCrudRepository;
 
-import fudan.mmdb.mds.web.model.MdsSolrDocument;
+import fudan.mmdb.mds.core.model.solr.MdsSolrDocument;
 
 public interface DocumentRepository extends
 		SolrCrudRepository<MdsSolrDocument, String>, ClusteringRepository {
