@@ -17,8 +17,8 @@ public class SolrIndexServiceImpl implements SolrIndexService {
     private DocumentRepository docRepo;
     
     @Override
-    public void addToIndex(MdsSolrDocument todoEntry) {
-        docRepo.save(todoEntry);
+    public void addToIndex(List<MdsSolrDocument> todoEntries) {
+        docRepo.save(todoEntries);
     }
 
     @Override

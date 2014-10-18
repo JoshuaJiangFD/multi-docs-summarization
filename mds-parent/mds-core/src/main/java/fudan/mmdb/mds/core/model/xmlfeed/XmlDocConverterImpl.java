@@ -24,7 +24,6 @@ public class XmlDocConverterImpl implements XmlDocConverter {
 		context = JAXBContext.newInstance(MdsDocXmlFeed.class);
 	}
 
-	@Override
 	public MdsDocXmlFeed convertFromXml(String xml) {
 
 		try {
@@ -39,7 +38,6 @@ public class XmlDocConverterImpl implements XmlDocConverter {
 		}
 	}
 
-	@Override
 	public String convertToXMl(MdsDocXmlFeed docFeed) {
 		try {
 			StringWriter writer = new StringWriter();
@@ -56,7 +54,6 @@ public class XmlDocConverterImpl implements XmlDocConverter {
 		}
 	}
 
-	@Override
 	public Boolean persistToXml(MdsDocXmlFeed docFeed, File file) {
 		try {
 			StringWriter writer = new StringWriter();
@@ -72,6 +69,19 @@ public class XmlDocConverterImpl implements XmlDocConverter {
 			return false;
 		}
 		
+	}
+
+	public MdsDocXmlFeed convertFromFile(File xml) {
+		try {
+			Unmarshaller um = context.createUnmarshaller();
+			MdsDocXmlFeed docFeed = (MdsDocXmlFeed) um
+					.unmarshal(xml);
+			return docFeed;
+		} catch (Exception ex) {
+			String error = "Error in unserialize doc feed from xml.";
+			LOGGER.error(error, ex);
+			return null;
+		}
 	}
 
 }

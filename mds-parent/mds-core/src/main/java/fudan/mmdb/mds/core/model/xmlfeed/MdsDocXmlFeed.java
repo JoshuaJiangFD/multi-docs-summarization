@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import fudan.mmdb.mds.core.model.solr.MdsSolrDocument;
+import fudan.mmdb.mds.core.model.MdsDocument;
 
 
 @XmlRootElement
@@ -18,16 +18,16 @@ public class MdsDocXmlFeed {
 
 	@XmlElementWrapper(name="docList")
 	@XmlElement(name="document")
-	private ArrayList<MdsSolrDocument> documents;
+	private ArrayList<MdsDocument> documents;
 	
 	@XmlAttribute
 	private int size;
 
-	public ArrayList<MdsSolrDocument> getDocuments() {
+	public ArrayList<MdsDocument> getDocuments() {
 		return documents;
 	}
 
-	public void setDocuments(ArrayList<MdsSolrDocument> documents) {
+	public void setDocuments(ArrayList<MdsDocument> documents) {
 		this.documents = documents;
 	}
 

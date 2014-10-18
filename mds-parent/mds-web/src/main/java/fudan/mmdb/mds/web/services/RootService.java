@@ -42,7 +42,7 @@ public class RootService {
         MdsSolrDocument solrDoc = new MdsSolrDocument(returnedDoc.getId(),
                 returnedDoc.getTitle(), returnedDoc.getContent());
 
-        solrService.addToIndex(solrDoc);
+        solrService.addToIndex(Lists.newArrayList(solrDoc));
 
         return returnedDoc;
     }

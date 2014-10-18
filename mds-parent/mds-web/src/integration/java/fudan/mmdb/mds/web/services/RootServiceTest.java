@@ -84,14 +84,4 @@ public class RootServiceTest {
             }
         }
     }
-    
-    @Test
-    public void testAddDocs(){
-    	String path="C:/Users/泳/Desktop/dataset_619961/target";
-    	MdsDocXmlFeed feed=converter.convertFromFile(new File(path));
-    	rootService.addDocs(feed.getDocuments());
-    	
-    	
-    }
-
 }

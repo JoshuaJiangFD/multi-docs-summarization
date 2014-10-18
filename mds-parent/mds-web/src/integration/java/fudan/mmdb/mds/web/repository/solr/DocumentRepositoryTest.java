@@ -27,10 +27,12 @@ public class DocumentRepositoryTest {
 
     @Before
     public void setUp() throws Exception {
+    	
     }
 
     @After
     public void tearDown() throws Exception {
+    	
     }
 
     @Test
@@ -43,12 +45,12 @@ public class DocumentRepositoryTest {
     }
 
     @Test
-    @Ignore
     public void testDeleteAllDocs() {
         docRepository.deleteAll();
     }
 
     @Test
+    @Ignore
     public void testClustering(){
     	ClusteredResponse response=this.docRepository.getClusters("以色列");
     	System.out.println(response.getClusters().size());

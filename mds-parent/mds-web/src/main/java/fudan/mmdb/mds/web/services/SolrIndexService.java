@@ -7,7 +7,7 @@ import fudan.mmdb.mds.web.model.ClusteredResponse;
 
 public interface SolrIndexService {
 
-    public void addToIndex(MdsSolrDocument todoEntry);
+    public void addToIndex(List<MdsSolrDocument> todoEntry);
 
     public void deleteFromIndex(String id);
 
