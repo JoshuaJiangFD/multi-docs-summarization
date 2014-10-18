@@ -16,6 +16,9 @@ import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 
 import fudan.mmdb.mds.core.model.MdsDocument;
+import fudan.mmdb.mds.core.model.xmlfeed.MdsDocXmlFeed;
+import fudan.mmdb.mds.core.model.xmlfeed.XmlDocConverter;
+import fudan.mmdb.mds.core.model.xmlfeed.XmlDocConverterImpl;
 import fudan.mmdb.mds.core.utils.IDocProcessor;
 import fudan.mmdb.mds.web.config.HttpSolrConfig;
 import fudan.mmdb.mds.web.config.MongoDbConfig;
@@ -30,6 +33,9 @@ public class RootServiceTest {
 
     @Autowired
     IDocProcessor docProcessor;
+    
+    @Autowired
+    XmlDocConverter converter;
 
     private List<MdsDocument> docs = Lists.newArrayList();
 
@@ -77,6 +83,15 @@ public class RootServiceTest {
                 System.out.println();
             }
         }
+    }
+    
+    @Test
+    public void testAddDocs(){
+    	String path="C:/Users/泳/Desktop/dataset_619961/target";
+    	MdsDocXmlFeed feed=converter.convertFromFile(new File(path));
+    	rootService.addDocs(feed.getDocuments());
+    	
+    	
     }
 
 }

@@ -14,9 +14,9 @@ import org.springframework.util.Assert;
 
 import com.google.common.collect.Lists;
 
+import fudan.mmdb.mds.core.model.solr.MdsSolrDocument;
 import fudan.mmdb.mds.web.config.HttpSolrConfig;
 import fudan.mmdb.mds.web.model.ClusteredResponse;
-import fudan.mmdb.mds.web.model.MdsSolrDocument;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = HttpSolrConfig.class)
