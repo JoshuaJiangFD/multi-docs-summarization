@@ -2,6 +2,17 @@
  * the js file for query page
  */
 $(document).ready(function() {
+	var $dialog=$('<div id="progressbar"></div>');
+	
+	$(document).ajaxStart(function(){
+		$dialog.dialog({  
+	        open: function(event, ui) { $(".ui-dialog-titlebar-close").hide(); },
+	        modal: true,
+	        width:800
+	    });
+	}).ajaxStop(function(){
+		$dialog.dialog( "close");
+	});
 	var rss = (function($) {
 		var createWidgets = function() {
 			$('#mainSplitter').jqxSplitter({
@@ -70,12 +81,32 @@ $(document).ready(function() {
                 var item = $('#jqxTree').jqxTree('getItem', event.args.element);
                 getDocs(item.label);
             });
+            $('#sumBtn').on('click', function (event) {
+            	if(!pageData.currentDocIds||pageData.currentDocIds.length==0){
+            		return;
+            	}
+            	var urlstr = "rest/sum";
+            	var data={
+            			docIds:pageData.currentDocIds
+            	};
+            	$.ajax({
+            		url : urlstr,
+            		type: 'post',    
+            		cache: false,
+            		dataType:'json',
+            		success : function(response) {
+              			$('#feedItemContent').jqxPanel('prepend', '<div style="padding: 1px;"><span>' + 
+              					response + '</span></div>');
+            		}
+            	});
+            });
         };
        var getDocs=function(clusterLabel){
+    	   var label=clusterLabel.replace(/\[\d+\]/i,'');
     	   var currentDocs=[];
     	   var docIds;
     	   $(pageData.clusters).each(function(index){
-    		   if(clusterLabel==this.label){
+    		   if(label==this.label){
     			   docIds=this.ids
     		   }
     		});
@@ -86,30 +117,55 @@ $(document).ready(function() {
     	  		   }
         		});  
     	   }
-    	   $('#feedListContainer').jqxListBox('source', currentDocs);
+    	   pageData.currentDocIds=docIds;
+    	   renderDocs(currentDocs);
        }  
+       var renderDocs=function(docs){
+    	   var listBox=$('#feedListContainer');
+    	   var source={
+    		localdata:docs,
+    		datatype:"array"
+    	   };
+    	   var dataAdapter = new $.jqx.dataAdapter(source);
+    	   listBox.jqxListBox({ selectedIndex: 0,  source: docs, displayMember: "id", valueMember: "title", itemHeight: 70, height: '100%', width: '100%',
+               renderer: function (index, label, value) {
+                   var datarecord = this.source[index];
+                   var title = '<a href="'+datarecord.url+'">'+datarecord.title+'</a>';
+                   var table = '<table style="min-width: 130px;"><tr><td>' + title + '</td></tr><tr><td>' + datarecord.content + '</td></tr></table>';
+                   return table;
+               }
+           });
+       }
+       
 		var initQuery = function(queryterm) {
 			var urlstr = "rest/cluster/" + queryterm;
 			$.ajax({
-				url : urlstr,
-				headers : {
-					Accept : "application/json; charset=utf-8",
-				},
-				contentType:'application/json; charset=UTF-8',
-			success : function(response) { 
-				pageData.clusters=response.clusters;
-				pageData.docs=response.docs;
-				$('#jqxTree').jqxTree({
-					source:pageData.clusters,
-					height : '100%',
-					width : '100%'
+					url : urlstr,
+					headers : {
+						Accept : "application/json; charset=utf-8",
+					},
+					contentType:'application/json; charset=UTF-8',
+					success : function(response) {
+						pageData.clusters = response.clusters;
+						pageData.docs = response.docs;
+						headers = [];
+						$(pageData.clusters).each(
+										function(index) {
+											headers.push('['+ this.ids.length+ ']'+ this.label);
+										});
+						$('#jqxTree').jqxTree({
+							source : headers,
+							height : '100%',
+							width : '100%'
+						});
+						$('#jqx-hideborder').text("Clusters for <b>"+ queryterm+ '</b>');
+					}
 				});
-			}
-			});
 		}
 		var pageData={
 				clusters:[],
 				docs:{},
+				currentDocIds:[]
 		}
 		return {
 			init : function() {

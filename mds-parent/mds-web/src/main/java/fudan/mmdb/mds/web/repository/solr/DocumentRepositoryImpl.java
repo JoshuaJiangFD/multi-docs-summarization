@@ -8,19 +8,25 @@ import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.util.NamedList;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.solr.core.SolrOperations;
 import org.springframework.stereotype.Repository;
 
+import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 
 import fudan.mmdb.mds.core.model.solr.MdsSolrDocument;
+import fudan.mmdb.mds.web.controllers.HomeController;
 import fudan.mmdb.mds.web.model.ClusteredItem;
 import fudan.mmdb.mds.web.model.ClusteredResponse;
 
 @Repository
 public class DocumentRepositoryImpl implements ClusteringRepository {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(HomeController.class);
+	
 	@Autowired
 	private SolrOperations solrTemplate;
 
@@ -45,12 +51,24 @@ public class DocumentRepositoryImpl implements ClusteringRepository {
 			clsrResp.setClusters(clstrItems);
 			//parse docs
 			List<MdsSolrDocument> docBeans=response.getBeans(MdsSolrDocument.class);
+			Map<String, Map<String, List<String>>> highlighted=response.getHighlighting();
+			//merge the result
+			for(MdsSolrDocument doc:docBeans){
+				Map<String,List<String>> entry=highlighted.get(doc.getId());
+				if(entry!=null){
+					List<String> snippets=entry.get("content");
+					if(snippets!=null){
+						String joined=Joiner.on("...").join(snippets);
+						doc.setContent(joined);
+					}
+				}
+			}
 			clsrResp.setDocs(docBeans);
 			return clsrResp;
 		} catch (Exception ex) {
+			LOGGER.error("Error in getClusters from solr.",ex);
 			return null;
 		}
-
 	}
 	
 	@SuppressWarnings("unchecked")

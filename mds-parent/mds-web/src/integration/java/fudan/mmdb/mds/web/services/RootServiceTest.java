@@ -25,63 +25,67 @@ import fudan.mmdb.mds.web.config.MongoDbConfig;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { ServiceTestConfig.class, MongoDbConfig.class,
-        HttpSolrConfig.class })
+		HttpSolrConfig.class })
 public class RootServiceTest {
 
-    @Autowired
-    RootService rootService;
+	@Autowired
+	RootService rootService;
 
-    @Autowired
-    IDocProcessor docProcessor;
-    
-    @Autowired
-    XmlDocConverter converter;
+	@Autowired
+	IDocProcessor docProcessor;
 
-    private List<MdsDocument> docs = Lists.newArrayList();
+	@Autowired
+	XmlDocConverter converter;
 
-    @Before
-    public void setUp() {
-        genAllDocs();
-    }
+	private List<MdsDocument> docs = Lists.newArrayList();
 
-    private void genAllDocs() {
-        String rootPath = "corpus-utf8";
-        File rootFile = new File(rootPath);
-        for(File file:rootFile.listFiles()){
-            docs.addAll(getDocs(file));
-        }
-    }
+	@Before
+	public void setUp() {
+		genAllDocs();
+	}
 
-    private List<MdsDocument> getDocs(File dir) {
-        try {
-            List<MdsDocument> docs = Lists.newArrayList();
-            for (File file : dir.listFiles()) {
-                List<String> allLines = Files.readAllLines(file.toPath(),
-                        Charsets.UTF_8);
-                String docContent = Joiner.on(" ").skipNulls().join(allLines);
-                MdsDocument doc = docProcessor.genDocument(docContent);
-                //doc.setTitle(file.getName());
-                docs.add(doc);
-            }
-            return docs;
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return null;
-        }
-    }
+	private void genAllDocs() {
+		// String rootPath = "corpus-utf8";
+		// File rootFile = new File(rootPath);
+		// for(File file:rootFile.listFiles()){
+		// docs.addAll(getDocs(file));
+		// }
+		String path = "C:/Users/泳/Desktop/dataset_619961/target/20131103.xml";
+		File file = new File(path);
+		MdsDocXmlFeed feed = this.converter.convertFromFile(file);
+		docs = feed.getDocuments();
+	}
 
-    @Test
-    public void testAddDocs() {
+//	private List<MdsDocument> getDocs(File dir) {
+//		try {
+//			List<MdsDocument> docs = Lists.newArrayList();
+//			for (File file : dir.listFiles()) {
+//				List<String> allLines = Files.readAllLines(file.toPath(),
+//						Charsets.UTF_8);
+//				String docContent = Joiner.on(" ").skipNulls().join(allLines);
+//				MdsDocument doc = docProcessor.genDocument(docContent);
+//				// doc.setTitle(file.getName());
+//				docs.add(doc);
+//			}
+//			return docs;
+//		} catch (Exception ex) {
+//			ex.printStackTrace();
+//			return null;
+//		}
+//	}
 
-        List<MdsDocument> resDocs = rootService.addDocs(docs);
-        int i = 0;
-        for (MdsDocument doc : resDocs) {
-            i++;
-            System.out.printf("[id: %s]", doc.getId());
-            if (i == 5) {
-                i = 0;
-                System.out.println();
-            }
-        }
-    }
+	@Test
+	public void testAddDocs() {
+
+		List<MdsDocument> resDocs = rootService.addDocs(docs);
+		int i = 0;
+		for (MdsDocument doc : resDocs) {
+			i++;
+			System.out.printf("[id: %s]", doc.getId());
+			if (i == 5) {
+				i = 0;
+				System.out.println();
+			}
+		}
+	}
 }

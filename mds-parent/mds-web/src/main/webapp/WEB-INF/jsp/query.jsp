@@ -14,11 +14,12 @@
 <link rel="stylesheet" href="includes/bootstrap/css/bootstrap.css"
 	rel="stylesheet" type="text/css" />
 
-<link rel="stylesheet" href="includes/jqwidgets/styles/jqx.base.css"
-	type="text/css" />
+<link rel="stylesheet" href="includes/jqwidgets/styles/jqx.base.css" type="text/css" />
+	
+<link  rel="stylesheet" href="includes/jqueryui/jquery-ui.css" type="text/css">
+<link  rel="stylesheet" href="includes/jqueryui/jquery-ui.structure.css" type="text/css">
 
-
-<link href="css/reset.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="css/reset.css"  type="text/css" />
 <!-- END GLOBAL MANDATORY STYLES -->
 
 <!-- BEGIN PAGE LEVEL STYLES -->
@@ -46,6 +47,16 @@ html, body {
 	padding-right: 5px;
 	height: 100%;
 	padding-bottom: 5px;
+}
+
+#progressbar{
+	width: 300px;
+    value: false;
+	z-index:1;
+}
+
+#sumBtn{
+	font-size: 12px;
 }
 </style>
 </head>
@@ -77,29 +88,9 @@ html, body {
 		<div id="mainSplitter">
 			<div>
 				<div style="border: none;" id="feedExpander">
-					<div class="jqx-hideborder">clusters for </div>
+					<div class="jqx-hideborder">Clusters</div>
 					<div class="jqx-hideborder jqx-hidescrollbars">
 						<div class="jqx-hideborder" id='jqxTree'>
-							<ul>
-								<li item-expanded='true' id="t1"><img
-									style='float: left; margin-right: 5px;' src='images/folder.png' /><span
-									item-title="true">News and Blogs</span>
-									<ul>
-										<li><img style='float: left; margin-right: 5px;'
-											src='images/folder.png' /><span item-title="true">Favorites</span>
-											<ul>
-												<li><img style='float: left; margin-right: 5px;'
-													src='images/folder.png' /><span item-title="true">ScienceDaily</span>
-												</li>
-											</ul></li>
-										<li><img style='float: left; margin-right: 5px;'
-											src='images/folder.png' /><span item-title="true">Geek.com</span>
-										</li>
-										<li><img style='float: left; margin-right: 5px;'
-											src='images/folder.png' /><span item-title="true">CNN.com</span>
-										</li>
-									</ul></li>
-							</ul>
 						</div>
 					</div>
 				</div>
@@ -116,26 +107,30 @@ html, body {
 					</div>
 					<div id="feedContentArea">
 						<div class="jqx-hideborder" id="feedContentExpander">
-							<div class="jqx-hideborder" id="feedItemHeader"></div>
+							<div class="jqx-hideborder" id="feedItemHeader">
+								<button id="sumBtn" type="button" class="btn btn-primary">Summarize</button>
+							</div>
 							<div class="jqx-hideborder jqx-hidescrollbars">
-								<div class="jqx-hideborder" id="feedItemContent">Select a
-									news item to see it's content</div>
+								<div class="jqx-hideborder" id="feedItemContent"></div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+	<!--  <footer class="footer">
+		<p class="text-muted">Place sticky footer content here.</p>
+	</footer>-->
 	</div>
-	<footer class="footer">
-	<p class="text-muted">Place sticky footer content here.</p>
-	</footer>
-
+	
 	<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+	
 	<!-- BEGIN CORE PLUGINS -->
 	<script src="includes/jquery/jquery-2.1.1.min.js"></script>
 
 	<script src="includes/bootstrap/js/bootstrap.js"></script>
+	
+	<script src="includes/jqueryui/jquery-ui.js"></script>
 
 	<script type="text/javascript" src="includes/jqwidgets/jqxcore.js"></script>
 	<script type="text/javascript" src="includes/jqwidgets/jqxtree.js"></script>
@@ -145,7 +140,9 @@ html, body {
 	<script type="text/javascript" src="includes/jqwidgets/jqxlistbox.js"></script>
 	<script type="text/javascript" src="includes/jqwidgets/jqxexpander.js"></script>
 	<script type="text/javascript" src="includes/jqwidgets/jqxscrollbar.js"></script>
+	<script type="text/javascript" src="includes/jqwidgets/jqxdata.js"></script>
 	<!-- END CORE PLUGINS -->
+	
 	<!-- BEGIN PAGE LEVEL SCRIPTS -->
 	<script type="text/javascript">
 		var queryterm='${queryterm}'

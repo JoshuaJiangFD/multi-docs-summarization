@@ -50,9 +50,8 @@ public class DocumentRepositoryTest {
     }
 
     @Test
-    @Ignore
     public void testClustering(){
-    	ClusteredResponse response=this.docRepository.getClusters("以色列");
+    	ClusteredResponse response=this.docRepository.getClusters("中纪委");
     	System.out.println(response.getClusters().size());
     	System.out.println(response.getDocs().size());
     }

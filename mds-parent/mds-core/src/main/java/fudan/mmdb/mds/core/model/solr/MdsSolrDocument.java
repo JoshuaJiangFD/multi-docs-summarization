@@ -14,6 +14,7 @@ public class MdsSolrDocument {
 	public static final String SOLR_FIELD_CONTENT = "content";
 	public static final String SOLR_FIELD_ID = "id";
 	public static final String SOLR_FIELD_TITLE = "title";
+	public static final String SOLR_FIELD_URl = "url";
 
 	@Field(SOLR_FIELD_ID)
 	private String id;
@@ -26,20 +27,16 @@ public class MdsSolrDocument {
 
 	private Date date;
 
+	@Field(SOLR_FIELD_URl)
 	private String url;
 
 	public MdsSolrDocument() {
 		super();
 	}
 
-	public MdsSolrDocument(String id, String title, String content) {
-		this.id = id;
-		this.title = title;
-		this.content = content;
-	}
-
-	public MdsSolrDocument(String title, String content, Date date, String url) {
+	public MdsSolrDocument(String id, String title, String content, Date date,String url) {
 		super();
+		this.id = id;
 		this.title = title;
 		this.content = content;
 		this.date = date;

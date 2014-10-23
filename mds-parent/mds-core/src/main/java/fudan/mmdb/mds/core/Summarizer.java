@@ -36,8 +36,10 @@ public final class Summarizer{
     private Map<String, Double> sentenceWeights = new HashMap<String, Double>();
 
     private static double compressionRatio = 1.0;
+    
+    private int size;
 
-    private static double alpha = 0.4;
+	private static double alpha = 0.4;
 
     /**
      * the over all count of words in documents
@@ -74,9 +76,15 @@ public final class Summarizer{
      */
     private final Map<String, Integer> docFrequencies = new HashMap<String, Integer>();
 
-    public Summarizer(List<MdsDocument> docs) {
+    public Summarizer(List<MdsDocument> docs,int size) {
         this.documents = docs;
+        this.size=size;
     }
+    
+    public Summarizer(List<MdsDocument> docs) {
+    	this(docs,0);
+    }
+
 
     public String summarizeDocs() {
         // calculate document frequencies of each word.
@@ -98,9 +106,7 @@ public final class Summarizer{
         }
 
         // main loop: iterating sentence set to select sentence.
-        int loopNum = 0;
         while (selectedLen / averageLen < compressionRatio) {
-            loopNum++;
             Sentence selected = this.selectSentence();
             logger.info(String.format("Select the sentence : %s", selected.getId()));
             selectedLen += selected.getWordCount();
@@ -114,6 +120,8 @@ public final class Summarizer{
                     waitingSentsSim.put(unselected.getId(), sim);
                 }
             }
+            if(this.size>0&selectedSentences.size()>=size)
+            	break;
         }
         logger.info(String.format(
                 "Selected set size: %d, unselected set size: %d.",
@@ -232,4 +240,12 @@ public final class Summarizer{
     public Map<String, Map<String, Double>> getWordWeights() {
         return wordWeights;
     }
+    
+    public int getSize() {
+		return size;
+	}
+
+	public void setSize(int size) {
+		this.size = size;
+	}
 }

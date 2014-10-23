@@ -9,9 +9,8 @@ import com.google.common.collect.Lists;
 
 import fudan.mmdb.mds.core.model.MdsDocument;
 import fudan.mmdb.mds.core.model.solr.MdsSolrDocument;
-import fudan.mmdb.mds.core.model.xmlfeed.XmlDocConverter;
-import fudan.mmdb.mds.core.model.xmlfeed.XmlDocConverterImpl;
 import fudan.mmdb.mds.web.model.ClusteredResponse;
+import fudan.mmdb.mds.web.model.SumRequest;
 import fudan.mmdb.mds.web.repository.mongo.MongoDocRepository;
 
 @Service
@@ -26,10 +25,10 @@ public class RootService {
     @Autowired
     private SummaryService sumSerivce;
     
-    public String getSummary(List<String> ids){
+    public String getSummary(SumRequest request){
         
         List<MdsDocument> mdsDocs = Lists.newArrayList(mongoRepository
-                .findAll(ids));
+                .findAll(request.getDocIds()));
         
         return sumSerivce.genSummary(mdsDocs);
     }
@@ -40,7 +39,7 @@ public class RootService {
         MdsDocument returnedDoc = mongoRepository.save(newDoc);
 
         MdsSolrDocument solrDoc = new MdsSolrDocument(returnedDoc.getId(),
-                returnedDoc.getTitle(), returnedDoc.getContent());
+                returnedDoc.getTitle(), returnedDoc.getContent(),returnedDoc.getDate(),returnedDoc.getUrl());
 
         solrService.addToIndex(Lists.newArrayList(solrDoc));
 
