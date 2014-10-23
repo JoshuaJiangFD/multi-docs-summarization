@@ -16,6 +16,15 @@
 			<artifactId>mds-wordsimilarity</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<!--slf log -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+		</dependency>
 		<!-- spring context -->
 		<dependency>
 			<groupId>org.springframework</groupId>
