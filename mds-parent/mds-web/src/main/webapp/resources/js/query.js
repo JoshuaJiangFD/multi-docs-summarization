@@ -86,14 +86,19 @@ $(document).ready(function() {
             		return;
             	}
             	var urlstr = "rest/sum";
-            	var data={
-            			docIds:pageData.currentDocIds
+            	var sumReq={
+            			docIds: pageData.currentDocIds
             	};
             	$.ajax({
             		url : urlstr,
             		type: 'post',    
             		cache: false,
-            		dataType:'json',
+            		data:JSON.stringify(sumReq),
+            		 dataType: 'json',
+					headers : {
+						Accept : "application/json; charset=utf-8",
+					},
+					contentType:'application/json; charset=UTF-8',
             		success : function(response) {
               			$('#feedItemContent').jqxPanel('prepend', '<div style="padding: 1px;"><span>' + 
               					response + '</span></div>');

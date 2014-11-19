@@ -2,6 +2,7 @@ package fudan.mmdb.mds.web.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.ImportResource;
 
 /**
  * This is the root applicationContext.</br>
@@ -14,6 +15,7 @@ import org.springframework.context.annotation.Import;
  */
 @Configuration
 @Import({HttpSolrConfig.class,MongoDbConfig.class})
+@ImportResource("classpath:mdscore-context.xml")
 public class RootAppConfig {
 
 }

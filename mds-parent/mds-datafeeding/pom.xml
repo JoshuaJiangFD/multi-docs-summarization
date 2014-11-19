@@ -13,6 +13,16 @@
 			<groupId>fudan.mmdb.mds</groupId>
 			<artifactId>mds-core</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<groupId>edu.stanford.nlp</groupId>
+					<artifactId>stanford-corenlp</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>edu.stanford.nlp</groupId>
+					<artifactId>stanford-chinese-corenlp</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>

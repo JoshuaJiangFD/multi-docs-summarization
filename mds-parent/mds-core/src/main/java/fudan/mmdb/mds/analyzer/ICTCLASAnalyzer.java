@@ -31,6 +31,7 @@ public class ICTCLASAnalyzer implements IZHAnalyzer {
             testICTCLAS50.ICTCLAS_SetPOSmap(2);
 
         } catch (Exception ex) {
+        	logger.fatal("Exception in ICTCLASAnalyzer cstr.",ex);
             System.exit(-1);
         }
     }

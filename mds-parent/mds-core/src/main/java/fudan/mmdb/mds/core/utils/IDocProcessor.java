@@ -4,7 +4,6 @@ import java.util.List;
 
 import fudan.mmdb.mds.core.model.MdsDocument;
 import fudan.mmdb.mds.core.model.Sentence;
-import fudan.mmdb.mds.wordsimilarity.model.Word;
 
 public interface IDocProcessor {
 
@@ -32,4 +31,10 @@ public interface IDocProcessor {
      * @return
      */
     double simSentence(Sentence s1, Sentence s2);
+    
+    /**
+     * analyze the semantic info inside a doc, mainly includes:
+     * sentence detection, word parser.
+     */
+    void analyzeMdsDocument(MdsDocument doc);
 }

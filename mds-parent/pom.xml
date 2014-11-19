@@ -20,9 +20,16 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
+	<repositories>
+		<repository>
+			<id>my</id>
+			<url>file://E:/Repository_Maven_Mine</url>
+		</repository>
+	</repositories>
+
 	<dependencyManagement>
 		<dependencies>
-			<!-- spring core-->
+			<!-- spring core -->
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-core</artifactId>
@@ -71,7 +78,7 @@
 				<scope>test</scope>
 			</dependency>
 			<!-- jstl & jsp -->
-			
+
 
 			<!-- google guava -->
 			<dependency>
