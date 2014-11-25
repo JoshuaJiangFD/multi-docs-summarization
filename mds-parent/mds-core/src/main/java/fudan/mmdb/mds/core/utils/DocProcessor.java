@@ -66,8 +66,8 @@ public class DocProcessor implements IDocProcessor {
 	
 	private StanfordNLPHelper nlpHelper=new StanfordNLPHelper();
 
-//	@Autowired
-	private IZHAnalyzer zhAnalyzer=new ICTCLASAnalyzer() ;
+	@Autowired
+	private IZHAnalyzer zhAnalyzer;
 
 	public List<String> STOPWORDS = new ArrayList<String>();
 

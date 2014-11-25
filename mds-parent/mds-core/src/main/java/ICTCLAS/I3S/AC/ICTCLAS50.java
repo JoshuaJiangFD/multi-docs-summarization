@@ -1,5 +1,7 @@
 package ICTCLAS.I3S.AC;
 
+import java.io.File;
+
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
@@ -33,17 +35,31 @@ public class ICTCLAS50 {
     public native byte[] nativeProcAPara(byte[] sSrc, int eCodeType,
             int bPOStagged);
 
-    /* Use static initializer */
-    static {
-        ResourceLoader loader = new DefaultResourceLoader();
-        Resource resource = loader
-                .getResource("classpath:ictclas/ICTCLAS50.dll");
+    public ICTCLAS50(String ictclasRoot){
         try {
-            String dllPath = resource.getFile().getAbsolutePath();
+        	File file=new File(ictclasRoot,"ICTCLAS50.dll");
+            String dllPath = file.getAbsolutePath();
             System.load(dllPath);
         } catch (Exception ex) {
+        	ex.printStackTrace();
             System.exit(-1);
         }
-        // System.loadLibrary("ICTCLAS50");
     }
+    
+    /**
+     * use spring resource loader to find the directory under classpath
+     */
+//    /* Use static initializer */
+//    static {
+//        ResourceLoader loader = new DefaultResourceLoader();
+//        Resource resource = loader
+//                .getResource("classpath:ictclas/ICTCLAS50.dll");
+//        try {
+//            String dllPath = resource.getFile().getAbsolutePath();
+//            System.load(dllPath);
+//        } catch (Exception ex) {
+//            System.exit(-1);
+//        }
+//        // System.loadLibrary("ICTCLAS50");
+//    }
 }

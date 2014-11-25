@@ -3,21 +3,24 @@ package fudan.mmdb.mds.analyzer;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.google.common.base.Joiner;
 
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes={AnalyzerTestConfig.class})
 public class ICTCLASAnalyzerTest {
 
-	private static ICTCLASAnalyzer analyzer;
+	@Autowired
+	private  ICTCLASAnalyzer analyzer;
 	
 	private static Logger logger=Logger.getLogger(ICTCLASAnalyzerTest.class);
 	
-	@BeforeClass
-	public static void BeforeClass(){
-		analyzer=new ICTCLASAnalyzer();
-	}
 	
 	@Test
 	public void testAnalyze() {
@@ -32,4 +35,5 @@ public class ICTCLASAnalyzerTest {
 	    String result=analyzer.paragraphProcess(sInput, "utf-8");
 	    logger.info(result);
 	}
+
 }

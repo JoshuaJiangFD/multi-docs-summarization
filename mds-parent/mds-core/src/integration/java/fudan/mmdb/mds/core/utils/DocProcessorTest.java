@@ -1,5 +1,6 @@
 package fudan.mmdb.mds.core.utils;
 
+import static org.junit.Assert.*;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -27,7 +28,7 @@ import fudan.mmdb.mds.wordsimilarity.model.Word;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
-		"classpath:mdscore-context.xml" })
+		"classpath:test-context.xml" })
 public class DocProcessorTest {
 
 	@Autowired

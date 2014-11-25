@@ -1,30 +1,37 @@
 package fudan.mmdb.mds.analyzer;
 
-import ICTCLAS.I3S.AC.ICTCLAS50;
-
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.apache.log4j.Logger;
-import org.springframework.core.io.DefaultResourceLoader;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
+import org.springframework.beans.factory.annotation.Value;
+
+import ICTCLAS.I3S.AC.ICTCLAS50;
 
 import com.google.common.base.Strings;
 
 public class ICTCLASAnalyzer implements IZHAnalyzer {
 
     private Logger logger = Logger.getLogger(ICTCLASAnalyzer.class);
+    
+    @Value("${ictclas.home}")
+    private String ictclasRoot;
 
-    ICTCLAS50 testICTCLAS50 = new ICTCLAS50();
+    ICTCLAS50 testICTCLAS50;
 
-    public ICTCLASAnalyzer() {
-        ResourceLoader loader = new DefaultResourceLoader();
-        Resource resource = loader
-                .getResource("classpath:ictclas/ICTCLAS50.dll");
+    @PostConstruct
+    public void init() {
+//        ResourceLoader loader = new DefaultResourceLoader();
+//        Resource resource = loader
+//                .getResource("classpath:ictclas/ICTCLAS50.dll");
         try {
-            String configDirPath = resource.getFile().getParentFile().getAbsolutePath();
-            if (testICTCLAS50.ICTCLAS_Init(configDirPath.getBytes("GB2312")) == false) {
+        	testICTCLAS50=new ICTCLAS50(ictclasRoot);
+//        	File rootFile=new File(ictclasRoot);
+//            String configDirPath = rootFile.getParentFile().getAbsolutePath();
+            if (testICTCLAS50.ICTCLAS_Init(ictclasRoot.getBytes("GB2312")) == false) {
                 logger.fatal("Init ICTCLAS50 Fail!");
             }
             // 设置词性标注集(0 计算所二级标注集，1 计算所一级标注集，2 北大二级标注集，3 北大一级标注集)
