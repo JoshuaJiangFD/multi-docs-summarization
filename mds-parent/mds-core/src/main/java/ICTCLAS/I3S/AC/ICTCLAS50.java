@@ -2,11 +2,9 @@ package ICTCLAS.I3S.AC;
 
 import java.io.File;
 
-import org.springframework.core.io.DefaultResourceLoader;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
-
 public class ICTCLAS50 {
+	
+	private final static Object lock=new Object();
     // public enum eCodeType
     // {
     // CODE_TYPE_UNKNOWN,//type unknown
@@ -35,7 +33,7 @@ public class ICTCLAS50 {
     public native byte[] nativeProcAPara(byte[] sSrc, int eCodeType,
             int bPOStagged);
 
-    public ICTCLAS50(String ictclasRoot){
+    private ICTCLAS50(String ictclasRoot){
         try {
         	File file=new File(ictclasRoot,"ICTCLAS50.dll");
             String dllPath = file.getAbsolutePath();
@@ -44,6 +42,18 @@ public class ICTCLAS50 {
         	ex.printStackTrace();
             System.exit(-1);
         }
+    }
+    
+    private static ICTCLAS50 instance;
+    
+    public static ICTCLAS50 getInstance(String ictclasRoot){
+    	if(instance==null){
+    		synchronized(lock){
+    			if(instance==null)
+    				instance=new ICTCLAS50(ictclasRoot);
+    		}
+    	}
+    		return instance;
     }
     
     /**

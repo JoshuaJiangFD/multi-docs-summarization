@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.google.common.collect.Maps;
 
@@ -108,6 +109,10 @@ public final class Summarizer{
         // main loop: iterating sentence set to select sentence.
         while (selectedLen / averageLen < compressionRatio) {
             Sentence selected = this.selectSentence();
+            if(selected==null){
+            	logger.info(String.format("Select NULL sentence. selected size :%f.",selectedLen));
+            	break;
+            }
             logger.info(String.format("Select the sentence : %s", selected.getId()));
             selectedLen += selected.getWordCount();
             unSelectedSentences.remove(selected);

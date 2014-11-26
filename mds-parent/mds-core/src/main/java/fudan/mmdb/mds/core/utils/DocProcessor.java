@@ -1,6 +1,7 @@
 package fudan.mmdb.mds.core.utils;
 
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,6 +14,7 @@ import java.util.concurrent.ConcurrentMap;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.DefaultResourceLoader;
@@ -81,8 +83,7 @@ public class DocProcessor implements IDocProcessor {
 		ResourceLoader loader = new DefaultResourceLoader();
 		Resource resource = loader
 				.getResource("classpath:chinese-stopwords.txt");
-		List<String> allLines = Files.readAllLines(resource.getFile().toPath(),
-				Charsets.UTF_8);
+		List<String> allLines = IOUtils.readLines(new InputStreamReader(resource.getInputStream(),Charsets.UTF_8));
 		for (String str : allLines) {
 			if (Strings.isNullOrEmpty(str))
 				continue;

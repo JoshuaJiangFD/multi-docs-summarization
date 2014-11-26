@@ -28,7 +28,7 @@ public class ICTCLASAnalyzer implements IZHAnalyzer {
 //        Resource resource = loader
 //                .getResource("classpath:ictclas/ICTCLAS50.dll");
         try {
-        	testICTCLAS50=new ICTCLAS50(ictclasRoot);
+        	testICTCLAS50=ICTCLAS50.getInstance(ictclasRoot);
 //        	File rootFile=new File(ictclasRoot);
 //            String configDirPath = rootFile.getParentFile().getAbsolutePath();
             if (testICTCLAS50.ICTCLAS_Init(ictclasRoot.getBytes("GB2312")) == false) {

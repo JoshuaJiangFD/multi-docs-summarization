@@ -26,6 +26,7 @@ public class SentenceTest {
     private Sentence sentence1;
     
     private Sentence sentence2;
+    
     @Autowired
     private DocProcessor docProcessor;
     
