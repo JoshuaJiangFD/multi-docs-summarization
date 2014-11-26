@@ -13,7 +13,7 @@ public class Sentence {
     
     private String id;
     
-    private int docId;
+    private String docId;
     
     private String content;
         
@@ -60,11 +60,11 @@ public class Sentence {
         this.id = id;
     }
 
-    public int getDocId() {
+    public String getDocId() {
         return docId;
     }
 
-    public void setDocId(int docId) {
+    public void setDocId(String docId) {
         this.docId = docId;
     }
 

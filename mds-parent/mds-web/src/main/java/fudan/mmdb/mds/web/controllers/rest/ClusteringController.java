@@ -44,8 +44,7 @@ public class ClusteringController {
 	}
 
 	@RequestMapping(value = "/sum", method = RequestMethod.POST, headers = { "Accept=application/json" })
-	@ResponseBody
-	public String summarize(@RequestBody SumRequest request) {
+	public 	@ResponseBody String summarize(@RequestBody SumRequest request) {
 		if (!validateSumRequest(request))
 			return null;
 		return this.rootService.getSummary(request);

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.google.common.collect.Lists;
 
 import fudan.mmdb.mds.core.model.MdsDocument;
+import fudan.mmdb.mds.core.model.Sentence;
 import fudan.mmdb.mds.core.model.solr.MdsSolrDocument;
 import fudan.mmdb.mds.core.utils.IDocProcessor;
 import fudan.mmdb.mds.web.model.ClusteredResponse;
@@ -46,15 +47,27 @@ public class RootService {
 
     	//analyze new doc's semantic info
     	docProcessor.analyzeMdsDocument(newDoc);
-    	//save to MongoDB
+    	
+    	//save to MongoDB to generate the docId
         MdsDocument returnedDoc = mongoRepository.save(newDoc);
+        
+        //assign sentenceId and docId to each sentence inside the newDoc object.
+        int i=0;
+        for(Sentence sent:newDoc.getSentences()){
+        	sent.setDocId(newDoc.getId());
+        	sent.setId(String.format("%s-%d", newDoc.getId(),i));
+        	i++;
+        }
+        
+        //save it again
+        mongoRepository.save(newDoc);
+        
         //save to Solr
         MdsSolrDocument solrDoc = new MdsSolrDocument(returnedDoc.getId(),
                 returnedDoc.getTitle(), returnedDoc.getContent(),returnedDoc.getDate(),returnedDoc.getUrl());
         solrService.addToIndex(Lists.newArrayList(solrDoc));
 
         logger.info(String.format("Successfully save doc: %s",newDoc.getId()));
-        
         return returnedDoc;
     }
     

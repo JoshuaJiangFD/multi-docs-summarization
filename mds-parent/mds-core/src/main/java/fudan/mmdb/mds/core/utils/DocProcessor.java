@@ -268,6 +268,12 @@ public class DocProcessor implements IDocProcessor {
 		return sim;
 	}
 
+	/**
+	 * split sentence into list of words.
+	 * 
+	 * @param sentence
+	 * @return
+	 */
 	public List<Word> genWords(String sentence) {
 		List<Word> words = Lists.newArrayList();
 		List<String> wordStrs = this.zhAnalyzer.analyze(sentence);
@@ -312,10 +318,10 @@ public class DocProcessor implements IDocProcessor {
 		}
 	}
 
+	
 	@Override
-	public void analyzeMdsDocument(MdsDocument doc) {
-
-		List<String> sentenceStrs = this.nlpHelper.splitSentences(doc.getContent());
+	public void analyzeMdsDocument(MdsDocument newDoc) {
+		List<String> sentenceStrs = this.nlpHelper.splitSentences(newDoc.getContent());
 		List<Sentence> sentences = new ArrayList<Sentence>();
 		int wordCount = 0;
 		for (int i = 0; i < sentenceStrs.size(); i++) {
@@ -327,12 +333,12 @@ public class DocProcessor implements IDocProcessor {
 			sentences.add(sent);
 			wordCount += words.size();
 			for (Word w : words) {
-				Integer cur = doc.getTermFreqs().get(w.getWord());
+				Integer cur = newDoc.getTermFreqs().get(w.getWord());
 				cur = (cur == null) ? 1 : cur + 1;
-				doc.getTermFreqs().put(w.getWord(), cur);
+				newDoc.getTermFreqs().put(w.getWord(), cur);
 			}
 		}
-		doc.setSentences(sentences);
-		doc.setWordCount(wordCount);
+		newDoc.setSentences(sentences);
+		newDoc.setWordCount(wordCount);
 	}
 }

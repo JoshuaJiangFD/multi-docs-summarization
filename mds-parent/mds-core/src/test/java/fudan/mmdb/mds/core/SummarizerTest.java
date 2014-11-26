@@ -59,7 +59,7 @@ public class SummarizerTest {
                     Sentence sent = doc.getSentences().get(j);
                     String senId = String.format("%d#%d", i, j);
                     sent.setId(senId);
-                    sent.setDocId(i);
+                    sent.setDocId(String.valueOf(i));
                     sent.setDocPos(j * 1.0 / doc.getSentences().size());
                 }
             }

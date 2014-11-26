@@ -24,8 +24,7 @@ import fudan.mmdb.mds.web.config.HttpSolrConfig;
 import fudan.mmdb.mds.web.config.MongoDbConfig;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { ServiceTestConfig.class, MongoDbConfig.class,
-		HttpSolrConfig.class })
+@ContextConfiguration(classes = { ServiceTestConfig.class, MongoDbConfig.class,HttpSolrConfig.class })
 public class RootServiceTest {
 
 	@Autowired
