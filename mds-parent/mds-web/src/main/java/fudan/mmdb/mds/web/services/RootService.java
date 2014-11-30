@@ -39,7 +39,7 @@ public class RootService {
         List<MdsDocument> mdsDocs = Lists.newArrayList(mongoRepository
                 .findAll(request.getDocIds()));
         
-        return sumSerivce.genSummary(mdsDocs);
+        return sumSerivce.genSummary(mdsDocs,request);
     }
     
    

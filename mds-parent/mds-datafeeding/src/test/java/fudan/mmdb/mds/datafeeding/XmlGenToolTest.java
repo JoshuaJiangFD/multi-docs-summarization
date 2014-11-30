@@ -16,12 +16,13 @@ public class XmlGenToolTest {
 	@Test
 	public void testExecute() throws JAXBException {
 		File sourceDir=new File("C:\\Users\\泳\\Desktop\\dataset_619961\\619961\\newsdata");
-		File targetDir=new File("C:\\Users\\泳\\Desktop\\dataset_619961\\target");
+		File targetDir=new File("C:\\Users\\泳\\Desktop\\dataset_619961\\target2");
 		XmlGenTool tool=new XmlGenTool(sourceDir,targetDir);
 		tool.execute();
 	}
 	
 	@Test
+	@Ignore
 	public void test_parseSingleFile(){
 		File sourceFile=new File("C:\\Users\\泳\\Desktop\\dataset_619961\\619961\\newsdata\\20131101\\IFENG-449.txt");
 		XmlGenTool tool=new XmlGenTool();
@@ -30,6 +31,7 @@ public class XmlGenToolTest {
 	}
 	
 	@Test
+	@Ignore
 	public void test_detectEncode() throws Exception{
 		File sourceFile=new File("C:\\Users\\泳\\Desktop\\dataset_619961\\619961\\newsdata\\20131101\\IFENG-0.txt");
 		XmlGenTool tool=new XmlGenTool();

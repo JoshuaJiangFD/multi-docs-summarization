@@ -101,7 +101,7 @@ $(document).ready(function() {
 					contentType:'application/json; charset=UTF-8',
             		success : function(response) {
               			$('#feedItemContent').jqxPanel('prepend', '<div style="padding: 1px;"><span>' + 
-              					response + '</span></div>');
+              					response.result + '</span></div>');
             		}
             	});
             });

@@ -307,10 +307,10 @@ public class SimilarityCalculatorImpl implements ISimilarityCalculator {
 			return max;
 		}
 		if (!ALLWORDS.containsKey(word1)) {
-			logger.warn(String.format("[%s] 没有被知网中收录.", word1));
+			logger.debug(String.format("[%s] 没有被知网中收录.", word1));
 		}
 		if (!ALLWORDS.containsKey(word2)) {
-			logger.warn(String.format("[%s] 没有被知网中收录.", word2));
+			logger.debug(String.format("[%s] 没有被知网中收录.", word2));
 		}
 		return 0.0;
 	}
@@ -367,10 +367,10 @@ public class SimilarityCalculatorImpl implements ISimilarityCalculator {
 			return simCategory(category1, category2);
 		}
 		if (!ALLWORDS_IN_CILIN.containsKey(word1)) {
-			logger.warn(String.format("[%s] 没有被同义词词林收录.", word1));
+			logger.debug(String.format("[%s] 没有被同义词词林收录.", word1));
 		}
 		if (!ALLWORDS_IN_CILIN.containsKey(word2)) {
-			logger.warn(String.format("[%s] 没有被同义词词林收录.", word2));
+			logger.debug(String.format("[%s] 没有被同义词词林收录.", word2));
 		}
 		return 0.0;
 	}

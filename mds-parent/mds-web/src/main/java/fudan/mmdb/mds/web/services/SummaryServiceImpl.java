@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import fudan.mmdb.mds.core.Summarizer;
 import fudan.mmdb.mds.core.model.MdsDocument;
 import fudan.mmdb.mds.core.utils.IDocProcessor;
+import fudan.mmdb.mds.web.model.SumRequest;
 
 @Service
 public class SummaryServiceImpl implements SummaryService {
@@ -16,9 +17,9 @@ public class SummaryServiceImpl implements SummaryService {
 	IDocProcessor processor;
 	
     @Override
-    public String genSummary(List<MdsDocument> docs) {
+    public String genSummary(List<MdsDocument> docs,SumRequest request) {
         
-        Summarizer worker=new Summarizer(docs);
+        Summarizer worker=new Summarizer(docs,request.getSize());
         
         worker.setDocProcessor(processor);
         

@@ -14,6 +14,7 @@ import com.google.common.base.Strings;
 
 import fudan.mmdb.mds.web.model.ClusteredResponse;
 import fudan.mmdb.mds.web.model.SumRequest;
+import fudan.mmdb.mds.web.model.SumResponse;
 import fudan.mmdb.mds.web.services.RootService;
 
 @Controller
@@ -44,10 +45,12 @@ public class ClusteringController {
 	}
 
 	@RequestMapping(value = "/sum", method = RequestMethod.POST, headers = { "Accept=application/json" })
-	public 	@ResponseBody String summarize(@RequestBody SumRequest request) {
+	public 	@ResponseBody SumResponse summarize(@RequestBody SumRequest request) {
 		if (!validateSumRequest(request))
 			return null;
-		return this.rootService.getSummary(request);
+		request.setSize(7);
+		String sum=this.rootService.getSummary(request);
+		return new SumResponse(sum);
 	}
 
 	private Boolean validateSumRequest(SumRequest request){

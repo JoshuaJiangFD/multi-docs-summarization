@@ -76,9 +76,18 @@ public class XmlGenTool {
 			ArrayList<MdsDocument> docs = new ArrayList<MdsDocument>();
 			File[] docFiles = file.listFiles();
 			for (File f : docFiles) {
-				MdsDocument doc = parseSingleFile(f);
-				if (doc != null)
+				final MdsDocument doc = parseSingleFile(f);
+				if (doc != null){
+					if(!Iterables.any(docs, new Predicate<MdsDocument>(){
+						@Override
+						public boolean apply(MdsDocument aDoc) {
+							if(aDoc.getTitle().equals(doc.getTitle()))
+									return true;
+							return false;
+						}
+					}))
 					docs.add(doc);
+				}
 			}
 			feed.setDocuments(docs);
 			feed.setSize(docs.size());
@@ -105,18 +114,18 @@ public class XmlGenTool {
 
 	public MdsDocument parseSingleFile(File docFile) {
 		try {
-			if(LOGGER.isDebugEnabled())
-				LOGGER.info("handling: {}",docFile.getAbsolutePath());
-			
-			FileInputStream inputStream=new FileInputStream(docFile);
-			Metadata meta =new Metadata();
+			if (LOGGER.isDebugEnabled())
+				LOGGER.info("handling: {}", docFile.getAbsolutePath());
+
+			FileInputStream inputStream = new FileInputStream(docFile);
+			Metadata meta = new Metadata();
 			WriteOutContentHandler handler = new WriteOutContentHandler();
 			ParseContext parse = new ParseContext();
 			parser.parse(inputStream, handler, meta, parse);
 			String rawcontent = handler.toString();
-			
-			List<String> allLines=Lists.newArrayList(rawcontent.split("\n"));
-			
+
+			List<String> allLines = Lists.newArrayList(rawcontent.split("\n"));
+
 			Iterable<String> filtered = Iterables.filter(allLines,
 					new Predicate<String>() {
 						@Override
@@ -129,22 +138,23 @@ public class XmlGenTool {
 							return true;
 						}
 					});
-			allLines=Lists.newArrayList(filtered);
+			allLines = Lists.newArrayList(filtered);
 
 			String title = allLines.get(0).trim();
 			String url = allLines.get(1).trim();
 			String dateStr = allLines.get(2).trim();
 			Date date = parseDateStr(dateStr);
-			
+
 			List<String> contentLst = allLines.subList(3, allLines.size());
-			if(contentLst.size()<1)
-			{
+			if (contentLst.size() < 1) {
 				shortFiles.add(docFile.getAbsolutePath());
 				return null;
 			}
-			
-			 String content = Joiner.on("\n").skipNulls().join(contentLst);
-			return new MdsDocument(title, content, url, date);
+
+			String content = Joiner.on("\n").skipNulls().join(contentLst);
+			if (content.contains("中国梦"))
+				return new MdsDocument(title, content, url, date);
+			return null;
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -157,12 +167,12 @@ public class XmlGenTool {
 	String detectCharset(FileInputStream inputStream) {
 		try {
 			Parser p = new TXTParser();
-			Metadata meta =new Metadata();
+			Metadata meta = new Metadata();
 			WriteOutContentHandler handler = new WriteOutContentHandler();
 			ParseContext parse = new ParseContext();
 			p.parse(inputStream, handler, meta, parse);
 			String content = handler.toString();
-			List<String> lines=Lists.newArrayList(content.split("\n"));
+			List<String> lines = Lists.newArrayList(content.split("\n"));
 			Iterable<String> filtered = Iterables.filter(lines,
 					new Predicate<String>() {
 						@Override
@@ -175,7 +185,7 @@ public class XmlGenTool {
 							return true;
 						}
 					});
-			lines=Lists.newArrayList(filtered);
+			lines = Lists.newArrayList(filtered);
 			System.out.println(lines.get(0));
 			System.out.println(lines.get(1));
 			System.out.println(lines.get(2));

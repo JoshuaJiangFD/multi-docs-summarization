@@ -43,7 +43,8 @@ public class MvcDispatcherServletConfig extends WebMvcConfigurerAdapter {
 
 	/**
 	 * customize the predefined content negotiation manager via its configurer
-	 * note: favor doesn't change the order to check the content type, it will always be "path extension", "parameter","accept header"
+	 * note: favor doesn't change the order to check the content type, 
+	 * it will always be "path extension", "parameter","accept header"
 	 */
 	@Override
 	public void configureContentNegotiation(

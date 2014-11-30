@@ -44,7 +44,7 @@ public class RootServiceTest {
 	}
 
 	private void genAllDocs() {
-		String path = "C:/Users/泳/Desktop/dataset_619961/target/20131103.xml";
+		String path = "C:/Users/泳/Desktop/dataset_619961/target/20131104.xml";
 		File file = new File(path);
 		MdsDocXmlFeed feed = this.converter.convertFromFile(file);
 		docs = feed.getDocuments();
